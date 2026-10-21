@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Resume Preview | AI Resume Builder</title>
+
+<style>
+/* ========== WEBSITE ========== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #eef3f9;
+    color: #1e293b;
+}
+
+nav {
+    background: #1e3a8a;
+    padding: 18px 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.logo {
+    color: white;
+    font-size: 23px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.page-title {
+    text-align: center;
+    margin: 30px 10px 10px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #64748b;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 20px auto;
+    padding: 0 10px;
+}
+
+.buttons button {
+    background: #2563eb;
+    color: white;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.buttons button.active {
+    background: #075985;
+}
+
+.action-buttons button {
+    background: #0f172a;
+}
+
+/* ========== RESUME COMMON ========== */
+
+.resume {
+    width: 210mm;
+    max-width: 96%;
+    min-height: 297mm;
+    margin: 25px auto 50px;
+    background: white;
+    box-shadow: 0 8px 30px #0002;
+    --accent: #2563eb;
+    --soft: #dbeafe;
+    --dark: #0f172a;
+}
+
+.resume-header {
+    padding: 30px 35px 20px;
+}
+
+.resume-header h1 {
+    font-size: 23px;
+    margin: 0 0 10px;
+    color: var(--dark);
+    text-transform: uppercase;
+    overflow-wrap: anywhere;
+}
+
+.resume-header p {
+    margin: 5px 0;
+    font-size: 12px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+#previewCareerField {
+    font-size: 15px;
+    font-weight: bold;
+    color: var(--accent);
+}
+
+.resume-content {
+    padding: 20px 35px 35px;
+}
+
+.resume-section {
+    margin-bottom: 18px;
+}
+
+.resume-section h2 {
+    color: var(--accent);
+    font-size: 15px;
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--soft);
+    padding-bottom: 7px;
+    margin: 0 0 10px;
+}
+
+.resume-section p {
+    font-size: 12px;
+    line-height: 1.6;
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+    margin: 0;
+}
+
+.empty-section {
+    display: none !important;
+}
+
+#resumeProfilePhoto {
+    width: 105px;
+    height: 105px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 12px;
+}
+
+img[hidden] {
+    display: none !important;
+}
+
+/* ========== SIDEBAR ========== */
+
+.premium-sidebar {
+    display: none;
+}
+
+.sidebar-photo-box {
+    text-align: center;
+}
+
+#premiumProfilePhoto {
+    width: 115px;
+    height: 115px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid white;
+}
+
+.sidebar-block {
+    margin-top: 22px;
+}
+
+.sidebar-title {
+    font-size: 13px;
+    color: #075985;
+    border-bottom: 2px solid #0284c7;
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+}
+
+.sidebar-text,
+.sidebar-skill-item {
+    font-size: 11px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+    white-space: pre-line;
+}
+
+.sidebar-contact-item {
+    display: flex;
+    gap: 7px;
+    margin: 8px 0;
+}
+
+.sidebar-contact-item p {
+    margin: 0;
+}
+
+.sidebar-skill-item {
+    margin-bottom: 7px;
+}
+
+.sidebar-skill-item::before {
+    content: "◆ ";
+    color: #0284c7;
+}
+
+/* ========== CLASSIC ========== */
+
+.classic-template {
+    --accent: #1e3a8a;
+    --soft: #cbd5e1;
+}
+
+.classic-template .resume-header {
+    text-align: center;
+    border-bottom: 3px solid #1e3a8a;
+}
+
+.classic-template .resume-header h1 {
+    font-family: Georgia, serif;
+    font-size: 27px;
+}
+
+/* ========== CREATIVE ========== */
+
+.creative-template {
+    --accent: #7c3aed;
+    --soft: #ddd6fe;
+}
+
+.creative-template .resume-header {
+    background: #f5f3ff;
+    border-left: 10px solid #8b5cf6;
+}
+
+.creative-template .resume-header h1 {
+    color: #5b21b6;
+    font-size: 24px;
+}
+
+/* ========== MODERN + PREMIUM ========== */
+
+.modern-template,
+.premium-template {
+    display: grid;
+    grid-template-columns: 31% 69%;
+    grid-template-rows: auto 1fr;
+    align-items: start;
+}
+
+.modern-template {
+    --accent: #0284c7;
+    --soft: #bae6fd;
+}
+
+.premium-template {
+    --accent: #0369a1;
+    --soft: #bae6fd;
+}
+
+.modern-template .premium-sidebar,
+.premium-template .premium-sidebar {
+    display: block;
+    grid-column: 1;
+    grid-row: 1 / 3;
+    min-height: 297mm;
+    padding: 30px 18px;
+    min-width: 0;
+}
+
+.modern-template .premium-sidebar {
+    background: #87ceeb;
+}
+
+.premium-template .premium-sidebar {
+    background: #b9e5f6;
+}
+
+.modern-template .resume-header,
+.premium-template .resume-header {
+    grid-column: 2;
+    grid-row: 1;
+    padding: 35px 25px 20px;
+    min-width: 0;
+}
+
+.modern-template .resume-content,
+.premium-template .resume-content {
+    grid-column: 2;
+    grid-row: 2;
+    padding: 20px 25px 35px;
+    min-width: 0;
+}
+
+.modern-template .resume-header h1,
+.premium-template .resume-header h1 {
+    font-size: 22px;
+}
+
+.modern-template #resumeProfilePhoto,
+.premium-template #resumeProfilePhoto {
+    display: none !important;
+}
+
+.modern-template #skillsSection,
+.premium-template #skillsSection,
+.modern-template #languagesSection,
+.premium-template #languagesSection,
+.modern-template #softSkillsSection,
+.premium-template #softSkillsSection {
+    display: none !important;
+}
+
+/* ========== EDUCATION ========== */
+
+.education-card {
+    border-left: 3px solid var(--accent);
+    padding-left: 13px;
+}
+
+.education-degree {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.education-college {
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.education-year {
+    font-size: 11px;
+    color: var(--accent);
+    margin-top: 5px;
+}
+
+/* ========== RESPONSIVE ========== */
+
+@media (max-width: 600px) {
+    .resume {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .modern-template,
+    .premium-template {
+        grid-template-columns: 35% 65%;
+    }
+
+    .modern-template .premium-sidebar,
+    .premium-template .premium-sidebar {
+        padding: 18px 9px;
+    }
+
+    .modern-template .resume-header,
+    .premium-template .resume-header,
+    .modern-template .resume-content,
+    .premium-template .resume-content {
+        padding: 15px 12px;
+    }
+
+    .resume-header h1,
+    .modern-template .resume-header h1,
+    .premium-template .resume-header h1 {
+        font-size: 18px;
+    }
+
+    .sidebar-text,
+    .sidebar-skill-item {
+        font-size: 10px;
+    }
+
+    #premiumProfilePhoto {
+        width: 75px;
+        height: 75px;
+    }
+}
+/* ===== PDF PRINT LAYOUT ===== */
+
+@page {
+    size: A4;
+    margin: 0;
+}
+
+@media print {
+
+    html, body {
+        margin: 0 !important;
+        padding: 0 !important;
+        background: white !important;
+    }
+
+    nav,
+    .page-title,
+    .subtitle,
+    .buttons,
+    .empty-message {
+        display: none !important;
+    }
+
+    .resume {
+        width: 210mm !important;
+        max-width: none !important;
+        margin: 0 !important;
+        box-shadow: none !important;
+        print-color-adjust: exact !important;
+        -webkit-print-color-adjust: exact !important;
+    }
+
+    .modern-template,
+    .premium-template {
+        display: grid !important;
+        grid-template-columns: 31% 69% !important;
+    }
+
+    .modern-template .premium-sidebar,
+    .premium-template .premium-sidebar {
+        grid-column: 1;
+        grid-row: 1 / 3;
+    }
+}
+/* ===== MODERN & PREMIUM A4 PDF PAGES ===== */
+
+#pdfPages {
+    position: absolute;
+    left: -10000px;
+    top: 0;
+    width: 210mm;
+    visibility: hidden;
+}
+
+.pdf-page {
+    position: relative;
+    width: 210mm;
+    height: 297mm;
+    background: white;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.pdf-page .pdf-sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 31%;
+    height: 100%;
+    padding: 30px 18px;
+    overflow: hidden;
+}
+
+/* Modern Sky Blue */
+.pdf-page.modern-template .pdf-sidebar {
+    background: #87ceeb;
+}
+
+/* Premium */
+.pdf-page.premium-template .pdf-sidebar {
+    background: #b9e5f6;
+}
+
+.pdf-page .pdf-main {
+    position: absolute;
+    top: 0;
+    left: 31%;
+    width: 69%;
+    height: 100%;
+    padding: 30px 25px;
+    overflow: hidden;
+}
+
+/* Show separate pages only when printing Modern/Premium */
+
+@media print {
+
+    body.printing-blue-resume > :not(#pdfPages) {
+        display: none !important;
+    }
+
+    body.printing-blue-resume #pdfPages {
+        display: block !important;
+        position: static !important;
+        visibility: visible !important;
+    }
+
+    body.printing-blue-resume .pdf-page {
+        break-after: page;
+        page-break-after: always;
+        print-color-adjust: exact !important;
+        -webkit-print-color-adjust: exact !important;
+    }
+
+    body.printing-blue-resume .pdf-page:last-child {
+        break-after: auto;
+        page-break-after: auto;
+    }
+}
+/* BLUE SIDEBAR ON EVERY PRINTED PAGE */
+
+@media print {
+
+    body.print-modern::before,
+    body.print-premium::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 31%;
+        height: 100%;
+        z-index: 0;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+
+    body.print-modern::before {
+        background: #87ceeb;
+    }
+
+    body.print-premium::before {
+        background: #b9e5f6;
+    }
+
+    body.print-modern .resume,
+    body.print-premium .resume {
+        position: relative;
+        z-index: 1;
+        background: transparent !important;
+    }
+
+    body.print-modern .premium-sidebar,
+    body.print-premium .premium-sidebar {
+        background: transparent !important;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">📄 AI Resume Builder</div>
+
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="create_resume.html">Create Resume</a>
+        <a href="analyzer.html">Resume Analyzer</a>
+    </div>
+</nav>
+
+<h1 class="page-title">Your Professional Resume</h1>
+
+<p class="subtitle">
+    Choose your favourite professional resume template
+</p>
+
+<div class="buttons">
+    <button data-template="classic" onclick="changeTemplate('classic')">
+        Classic
+    </button>
+
+    <button data-template="modern" onclick="changeTemplate('modern')">
+        🩵 Modern Sky Blue
+    </button>
+
+    <button data-template="creative" onclick="changeTemplate('creative')">
+        Creative
+    </button>
+
+    <button data-template="premium" onclick="changeTemplate('premium')">
+        ⭐ Premium
+    </button>
+</div>
+
+<div class="buttons action-buttons">
+    <button onclick="editResume()">✏️ Edit Resume</button>
+    <button onclick="downloadResume()">📄 Download PDF</button>
+    <button onclick="openAnalyzer()">📊 Analyze Resume</button>
+</div>
+
+<div class="empty-message" id="emptyMessage" hidden>
+    No resume information found.
+    <br><br>
+    <a href="create_resume.html">Create your resume first</a>
+</div>
+
+<article class="resume classic-template" id="resumeTemplate">
+
+    <!-- SIDEBAR -->
+
+    <aside class="premium-sidebar">
+
+        <div class="sidebar-photo-box">
+            <img id="premiumProfilePhoto" alt="Profile Photo" hidden>
+        </div>
+
+        <div class="sidebar-block" id="sidebarContactBlock">
+            <h2 class="sidebar-title">CONTACT</h2>
+
+            <div class="sidebar-contact-item">
+                <span>✉</span>
+                <p class="sidebar-text" id="premiumEmail"></p>
+            </div>
+
+            <div class="sidebar-contact-item">
+                <span>☎</span>
+                <p class="sidebar-text" id="premiumPhone"></p>
+            </div>
+
+            <div class="sidebar-contact-item">
+                <span>⌖</span>
+                <p class="sidebar-text" id="premiumAddress"></p>
+            </div>
+        </div>
+
+        <div class="sidebar-block" id="sidebarSkillsBlock">
+            <h2 class="sidebar-title" id="premiumSkillsHeading">
+                TECHNICAL SKILLS
+            </h2>
+            <div id="premiumSkills"></div>
+        </div>
+
+        <div class="sidebar-block" id="sidebarSoftSkillsBlock">
+            <h2 class="sidebar-title">SOFT SKILLS</h2>
+            <div id="premiumSoftSkills"></div>
+        </div>
+
+        <div class="sidebar-block" id="sidebarLanguagesBlock">
+            <h2 class="sidebar-title">LANGUAGES</h2>
+            <div id="premiumLanguages"></div>
+        </div>
+
+    </aside>
+
+    <!-- HEADER -->
+
+    <header class="resume-header">
+        <img id="resumeProfilePhoto" alt="Profile Photo" hidden>
+
+        <h1 id="previewName">Your Name</h1>
+        <p id="previewCareerField"></p>
+        <p id="previewContact"></p>
+        <p id="previewAddress"></p>
+    </header>
+
+    <!-- CONTENT -->
+
+    <main class="resume-content">
+
+        <section class="resume-section" id="summarySection">
+            <h2>Professional Summary</h2>
+            <p id="previewObjective"></p>
+        </section>
+
+        <section class="resume-section" id="educationSection">
+            <h2>Education</h2>
+
+            <div class="education-card">
+                <div class="education-degree" id="previewDegree"></div>
+                <div class="education-college" id="previewCollege"></div>
+                <div class="education-year" id="previewGraduationYear"></div>
+            </div>
+        </section>
+
+        <section class="resume-section" id="skillsSection">
+            <h2 id="previewSkillsHeading">Technical Skills</h2>
+            <p id="previewSkills"></p>
+        </section>
+
+        <section class="resume-section" id="softSkillsSection">
+            <h2>Soft Skills</h2>
+            <p id="previewSoftSkills"></p>
+        </section>
+
+        <section class="resume-section" id="skillLevelSection">
+            <h2>Skills Proficiency</h2>
+            <p id="previewSkillLevel"></p>
+        </section>
+
+        <section class="resume-section" id="projectsSection">
+            <h2>Projects</h2>
+            <p id="previewProjects"></p>
+        </section>
+
+        <section class="resume-section" id="experienceSection">
+            <h2>Work Experience</h2>
+            <p id="previewExperience"></p>
+        </section>
+
+        <section class="resume-section" id="internshipsSection">
+            <h2>Internships</h2>
+            <p id="previewInternships"></p>
+        </section>
+
+        <section class="resume-section" id="certificationsSection">
+            <h2>Certifications</h2>
+            <p id="previewCertifications"></p>
+        </section>
+
+        <section class="resume-section" id="achievementsSection">
+            <h2>Achievements & Awards</h2>
+            <p id="previewAchievements"></p>
+        </section>
+
+        <section class="resume-section" id="workshopsSection">
+            <h2>Workshops & Training</h2>
+            <p id="previewWorkshops"></p>
+        </section>
+
+        <section class="resume-section" id="volunteerSection">
+            <h2>Volunteer Experience</h2>
+            <p id="previewVolunteer"></p>
+        </section>
+
+        <section class="resume-section" id="highlightsSection">
+            <h2>Professional Highlights</h2>
+            <p id="previewHighlights"></p>
+        </section>
+
+        <section class="resume-section" id="languagesSection">
+            <h2>Languages Known</h2>
+            <p id="previewLanguages"></p>
+        </section>
+
+        <section class="resume-section" id="linkedinSection">
+            <h2>LinkedIn</h2>
+            <p id="previewLinkedin"></p>
+        </section>
+
+        <section class="resume-section" id="portfolioSection">
+            <h2>Portfolio / GitHub</h2>
+            <p id="previewPortfolio"></p>
+        </section>
+
+    </main>
+</article>
+<div id="pdfPages"></div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const savedData = sessionStorage.getItem("resumeData");
+    const resume = document.getElementById("resumeTemplate");
+    const emptyMessage = document.getElementById("emptyMessage");
+
+    if (!savedData) {
+        resume.style.display = "none";
+        emptyMessage.hidden = false;
+        return;
+    }
+
+    let data;
+
+    try {
+        data = JSON.parse(savedData);
+    } catch (error) {
+        console.error(error);
+        resume.style.display = "none";
+        emptyMessage.hidden = false;
+        return;
+    }
+
+    function showData(id, value) {
+        const element = document.getElementById(id);
+        if (element) {
+            element.textContent = value || "";
+        }
+    }
+
+    const careerFieldNames = {
+        IT: "IT / Computer Science",
+        Medical: "Medical / Healthcare",
+        Commerce: "Commerce / Accounting",
+        Management: "Management",
+        Engineering: "Engineering",
+        Arts: "Arts / Design",
+        Teaching: "Teaching / Education",
+        Banking: "Banking / Finance",
+        Other: "Professional"
+    };
+
+    const skillsHeadings = {
+        IT: "TECHNICAL SKILLS",
+        Medical: "CLINICAL SKILLS",
+        Commerce: "ACCOUNTING SKILLS",
+        Management: "MANAGEMENT SKILLS",
+        Engineering: "ENGINEERING SKILLS",
+        Arts: "CREATIVE SKILLS",
+        Teaching: "TEACHING SKILLS",
+        Banking: "FINANCE SKILLS",
+        Other: "PROFESSIONAL SKILLS"
+    };
+
+    showData("previewName", data.fullName || "Your Name");
+
+    showData(
+        "previewCareerField",
+        careerFieldNames[data.careerField] ||
+        data.careerField || ""
+    );
+
+    showData(
+        "previewContact",
+        [data.email, data.phone].filter(Boolean).join(" | ")
+    );
+
+    showData("previewAddress", data.address);
+    showData("previewObjective", data.objective);
+    showData("previewDegree", data.degree);
+    showData("previewCollege", data.college);
+    showData("previewGraduationYear", data.graduationYear);
+    showData("previewSkills", data.skills);
+    showData("previewSoftSkills", data.softSkills);
+    showData("previewSkillLevel", data.skillLevel);
+    showData("previewExperience", data.experience);
+    showData("previewInternships", data.internships);
+    showData("previewProjects", data.projects);
+    showData("previewCertifications", data.certifications);
+    showData("previewAchievements", data.achievements);
+    showData("previewWorkshops", data.workshops);
+    showData("previewVolunteer", data.volunteer);
+    showData("previewHighlights", data.highlights);
+    showData("previewLanguages", data.languages);
+    showData("previewLinkedin", data.linkedin);
+    showData("previewPortfolio", data.portfolio);
+
+    const skillsHeading =
+        skillsHeadings[data.careerField] || "PROFESSIONAL SKILLS";
+
+    showData("previewSkillsHeading", skillsHeading);
+    showData("premiumSkillsHeading", skillsHeading);
+
+    showData("premiumEmail", data.email);
+    showData("premiumPhone", data.phone);
+    showData("premiumAddress", data.address);
+
+    function showSidebarList(id, value) {
+        const container = document.getElementById(id);
+        if (!container) return;
+
+        container.innerHTML = "";
+
+        if (!value || !value.trim()) return;
+
+        const items = value
+            .split(/[,;\n]+/)
+            .map(item => item.trim())
+            .filter(Boolean);
+
+        items.forEach(function (item) {
+            const div = document.createElement("div");
+            div.className = "sidebar-skill-item";
+            div.textContent = item;
+            container.appendChild(div);
+        });
+    }
+
+    showSidebarList("premiumSkills", data.skills);
+    showSidebarList("premiumSoftSkills", data.softSkills);
+    showSidebarList("premiumLanguages", data.languages);
+
+    const savedPhoto = sessionStorage.getItem("resumePhoto");
+
+    const normalPhoto = document.getElementById("resumeProfilePhoto");
+    const sidebarPhoto = document.getElementById("premiumProfilePhoto");
+
+    if (savedPhoto && savedPhoto.startsWith("data:image/")) {
+        normalPhoto.src = savedPhoto;
+        normalPhoto.hidden = false;
+
+        sidebarPhoto.src = savedPhoto;
+        sidebarPhoto.hidden = false;
+    }
+
+    const sectionFields = {
+        summarySection: ["objective"],
+        educationSection: ["degree", "college", "graduationYear"],
+        skillsSection: ["skills"],
+        softSkillsSection: ["softSkills"],
+        skillLevelSection: ["skillLevel"],
+        projectsSection: ["projects"],
+        experienceSection: ["experience"],
+        internshipsSection: ["internships"],
+        certificationsSection: ["certifications"],
+        achievementsSection: ["achievements"],
+        workshopsSection: ["workshops"],
+        volunteerSection: ["volunteer"],
+        highlightsSection: ["highlights"],
+        languagesSection: ["languages"],
+        linkedinSection: ["linkedin"],
+        portfolioSection: ["portfolio"]
+    };
+
+    Object.entries(sectionFields).forEach(function ([id, fields]) {
+        const section = document.getElementById(id);
+        if (!section) return;
+
+        const hasData = fields.some(function (field) {
+            return String(data[field] || "").trim() !== "";
+        });
+
+        section.classList.toggle("empty-section", !hasData);
+    });
+
+    function toggleSidebarBlock(id, value) {
+        const block = document.getElementById(id);
+        if (block) {
+            block.classList.toggle(
+                "empty-section",
+                !String(value || "").trim()
+            );
+        }
+    }
+
+    toggleSidebarBlock(
+        "sidebarContactBlock",
+        data.email || data.phone || data.address
+    );
+
+    toggleSidebarBlock("sidebarSkillsBlock", data.skills);
+    toggleSidebarBlock("sidebarSoftSkillsBlock", data.softSkills);
+    toggleSidebarBlock("sidebarLanguagesBlock", data.languages);
+
+    document.querySelectorAll(".sidebar-contact-item").forEach(function (item) {
+        const text = item.querySelector(".sidebar-text");
+        if (text && !text.textContent.trim()) {
+            item.style.display = "none";
+        }
+    });
+
+    const selectedTemplate =
+        sessionStorage.getItem("selectedTemplate") || "modern";
+
+    changeTemplate(selectedTemplate);
+});
+
+function changeTemplate(template) {
+    const resume = document.getElementById("resumeTemplate");
+
+    const validTemplates = ["classic", "modern", "creative", "premium"];
+
+    if (!validTemplates.includes(template)) {
+        template = "modern";
+    }
+
+    resume.className = "resume " + template + "-template";
+
+    document.querySelectorAll("[data-template]").forEach(function (button) {
+        button.classList.toggle(
+            "active",
+            button.dataset.template === template
+        );
+    });
+
+    sessionStorage.setItem("selectedTemplate", template);
+}
+
+function editResume() {
+    window.location.href = "create_resume.html?edit=true";
+}
+/* ===== MODERN & PREMIUM PDF PAGINATION ===== */
+
+function createPDFPage(template, pageNumber) {
+
+    const page = document.createElement("div");
+
+    page.className = "pdf-page " + template + "-template";
+
+    page.style.setProperty(
+        "--accent",
+        template === "modern" ? "#0284c7" : "#0369a1"
+    );
+
+    page.style.setProperty("--soft", "#bae6fd");
+
+    page.innerHTML = `
+        <div class="pdf-blue-background"></div>
+
+        <div class="pdf-sidebar-content"></div>
+
+        <div class="pdf-main"></div>
+    `;
+
+    document.getElementById("pdfPages").appendChild(page);
+
+    return {
+        page: page,
+        sidebar: page.querySelector(".pdf-sidebar-content"),
+        main: page.querySelector(".pdf-main")
+    };
+}
+
+
+/* Check whether content fits inside the page */
+
+function isOverflowing(element) {
+
+    return element.scrollHeight > element.clientHeight + 1;
+}
+
+
+/* Build PDF pages */
+
+function buildPDFPages() {
+
+    const resume = document.getElementById("resumeTemplate");
+
+    const pdfPages = document.getElementById("pdfPages");
+
+    pdfPages.innerHTML = "";
+
+    const template = resume.classList.contains("premium-template")
+        ? "premium"
+        : "modern";
+
+    let currentPage = createPDFPage(template, 1);
+
+    let pageNumber = 1;
+
+    /* ===== SIDEBAR ===== */
+
+    const originalSidebar = resume.querySelector(".premium-sidebar");
+
+    if (originalSidebar) {
+
+        const sidebarCopy = originalSidebar.cloneNode(true);
+
+        sidebarCopy.removeAttribute("id");
+
+        currentPage.sidebar.appendChild(sidebarCopy);
+    }
+
+    /* ===== HEADER ===== */
+
+    const originalHeader = resume.querySelector(".resume-header");
+
+    if (originalHeader) {
+
+        const headerCopy = originalHeader.cloneNode(true);
+
+        headerCopy.removeAttribute("id");
+
+        currentPage.main.appendChild(headerCopy);
+    }
+
+    /* ===== CONTENT CONTAINER ===== */
+
+    let contentContainer = document.createElement("div");
+
+    contentContainer.className = "resume-content";
+
+    currentPage.main.appendChild(contentContainer);
+
+
+    /* Create another A4 page when needed */
+
+    function nextPage() {
+
+        pageNumber++;
+
+        currentPage = createPDFPage(template, pageNumber);
+
+        contentContainer = document.createElement("div");
+
+        contentContainer.className = "resume-content";
+
+        currentPage.main.appendChild(contentContainer);
+    }
+
+
+    /* ===== RESUME SECTIONS ===== */
+
+    const sections = resume.querySelectorAll(
+        ".resume-content .resume-section"
+    );
+
+    sections.forEach(function (section) {
+
+        if (section.classList.contains("empty-section")) {
+            return;
+        }
+
+        if (getComputedStyle(section).display === "none") {
+            return;
+        }
+
+        const heading = section.querySelector("h2");
+
+        const bodyElements = Array.from(section.children).filter(
+            child => child !== heading
+        );
+
+        let sectionBox = document.createElement("section");
+
+        sectionBox.className = "resume-section";
+
+        if (heading) {
+            sectionBox.appendChild(heading.cloneNode(true));
+        }
+
+        contentContainer.appendChild(sectionBox);
+
+
+        /* Check heading fits */
+
+        if (isOverflowing(currentPage.main)) {
+
+            sectionBox.remove();
+
+            nextPage();
+
+            sectionBox = document.createElement("section");
+
+            sectionBox.className = "resume-section";
+
+            if (heading) {
+                sectionBox.appendChild(heading.cloneNode(true));
+            }
+
+            contentContainer.appendChild(sectionBox);
+        }
+
+
+        bodyElements.forEach(function (element) {
+
+            /* Education cards and other structured elements */
+
+            if (element.tagName !== "P") {
+
+                const copy = element.cloneNode(true);
+
+                sectionBox.appendChild(copy);
+
+                if (isOverflowing(currentPage.main)) {
+
+                    copy.remove();
+
+                    nextPage();
+
+                    sectionBox = document.createElement("section");
+
+                    sectionBox.className = "resume-section";
+
+                    if (heading) {
+                        sectionBox.appendChild(heading.cloneNode(true));
+                    }
+
+                    contentContainer.appendChild(sectionBox);
+
+                    sectionBox.appendChild(copy);
+                }
+
+                return;
+            }
+
+
+            /* Split long paragraphs into printable lines */
+
+            const text = element.textContent || "";
+
+            const lines = text.split("\n");
+
+            lines.forEach(function (line) {
+
+                const words = line.trim().split(/\s+/).filter(Boolean);
+
+                if (words.length === 0) {
+                    return;
+                }
+
+                let paragraph = document.createElement("p");
+
+                sectionBox.appendChild(paragraph);
+
+                words.forEach(function (word) {
+
+                    const previousText = paragraph.textContent;
+
+                    paragraph.textContent =
+                        previousText
+                            ? previousText + " " + word
+                            : word;
+
+                    if (isOverflowing(currentPage.main)) {
+
+                        paragraph.textContent = previousText;
+
+                        if (!previousText) {
+                            paragraph.remove();
+                        }
+
+                        nextPage();
+
+                        sectionBox = document.createElement("section");
+
+                        sectionBox.className = "resume-section";
+
+                        if (heading) {
+
+                            const continuedHeading = heading.cloneNode(true);
+
+                            sectionBox.appendChild(continuedHeading);
+                        }
+
+                        contentContainer.appendChild(sectionBox);
+
+                        paragraph = document.createElement("p");
+
+                        paragraph.textContent = word;
+
+                        sectionBox.appendChild(paragraph);
+                    }
+                });
+
+                if (!paragraph.textContent.trim()) {
+                    paragraph.remove();
+                }
+            });
+        });
+    });
+}
+
+
+/* ===== DOWNLOAD RESUME ===== */
+
+
+/* ===== MODERN & PREMIUM PDF PAGINATION ===== */
+
+function buildPDFPages() {
+
+    const resume = document.getElementById("resumeTemplate");
+    const pdfPages = document.getElementById("pdfPages");
+
+    pdfPages.innerHTML = "";
+
+    const template = resume.classList.contains("premium-template")
+        ? "premium"
+        : "modern";
+
+    let currentPage;
+    let currentMain;
+
+    function createPage() {
+
+        const page = document.createElement("div");
+
+        page.className = "pdf-page " + template + "-template";
+
+        page.style.setProperty(
+            "--accent",
+            template === "premium" ? "#0369a1" : "#0284c7"
+        );
+
+        page.style.setProperty("--soft", "#bae6fd");
+
+        page.innerHTML = `
+            <aside class="pdf-sidebar"></aside>
+            <main class="pdf-main"></main>
+        `;
+
+        pdfPages.appendChild(page);
+
+        currentPage = page;
+        currentMain = page.querySelector(".pdf-main");
+
+        return page;
+    }
+
+    function isFull() {
+        return currentMain.scrollHeight >
+               currentMain.clientHeight + 1;
+    }
+
+    // First A4 page
+    createPage();
+
+    // Copy sidebar information
+    const originalSidebar = resume.querySelector(".premium-sidebar");
+
+    if (originalSidebar) {
+        const sidebarCopy = originalSidebar.cloneNode(true);
+        sidebarCopy.style.display = "block";
+        sidebarCopy.style.minHeight = "0";
+        sidebarCopy.style.padding = "0";
+
+        currentPage.querySelector(".pdf-sidebar")
+            .appendChild(sidebarCopy);
+    }
+
+    // Copy resume header
+    const header = resume.querySelector(".resume-header");
+
+    if (header) {
+        currentMain.appendChild(header.cloneNode(true));
+    }
+
+    // Copy resume sections
+    const sections = resume.querySelectorAll(
+        ".resume-content .resume-section"
+    );
+
+    sections.forEach(function (section) {
+
+        if (section.classList.contains("empty-section")) {
+            return;
+        }
+
+        if (getComputedStyle(section).display === "none") {
+            return;
+        }
+
+        const copy = section.cloneNode(true);
+
+        currentMain.appendChild(copy);
+
+        if (isFull()) {
+
+            copy.remove();
+
+            createPage();
+
+            currentMain.appendChild(copy);
+        }
+    });
+}
+
+
+/* ===== DOWNLOAD PDF BUTTON ===== */
+
+
+/* ===== MODERN & PREMIUM PDF PAGINATION ===== */
+
+function buildPDFPages() {
+
+    const resume = document.getElementById("resumeTemplate");
+    const pdfPages = document.getElementById("pdfPages");
+
+    pdfPages.innerHTML = "";
+
+    const template = resume.classList.contains("premium-template")
+        ? "premium"
+        : "modern";
+
+    let currentPage;
+    let currentMain;
+
+    function createPage() {
+
+        const page = document.createElement("div");
+
+        page.className = "pdf-page " + template + "-template";
+
+        page.style.setProperty(
+            "--accent",
+            template === "premium" ? "#0369a1" : "#0284c7"
+        );
+
+        page.style.setProperty("--soft", "#bae6fd");
+
+        page.innerHTML = `
+            <aside class="pdf-sidebar"></aside>
+            <main class="pdf-main"></main>
+        `;
+
+        pdfPages.appendChild(page);
+
+        currentPage = page;
+        currentMain = page.querySelector(".pdf-main");
+
+        return page;
+    }
+
+    function isFull() {
+        return currentMain.scrollHeight >
+               currentMain.clientHeight + 1;
+    }
+
+    // First A4 page
+    createPage();
+
+    // Copy sidebar information
+    const originalSidebar = resume.querySelector(".premium-sidebar");
+
+    if (originalSidebar) {
+        const sidebarCopy = originalSidebar.cloneNode(true);
+        sidebarCopy.style.display = "block";
+        sidebarCopy.style.minHeight = "0";
+        sidebarCopy.style.padding = "0";
+
+        currentPage.querySelector(".pdf-sidebar")
+            .appendChild(sidebarCopy);
+    }
+
+    // Copy resume header
+    const header = resume.querySelector(".resume-header");
+
+    if (header) {
+        currentMain.appendChild(header.cloneNode(true));
+    }
+
+    // Copy resume sections
+    const sections = resume.querySelectorAll(
+        ".resume-content .resume-section"
+    );
+
+    sections.forEach(function (section) {
+
+        if (section.classList.contains("empty-section")) {
+            return;
+        }
+
+        if (getComputedStyle(section).display === "none") {
+            return;
+        }
+
+        const copy = section.cloneNode(true);
+
+        currentMain.appendChild(copy);
+
+        if (isFull()) {
+
+            copy.remove();
+
+            createPage();
+
+            currentMain.appendChild(copy);
+        }
+    });
+}
+
+
+/* ===== DOWNLOAD PDF BUTTON ===== */
+
+function downloadResume() {
+
+    const resume = document.getElementById("resumeTemplate");
+
+    document.body.classList.remove(
+        "print-modern",
+        "print-premium"
+    );
+
+    if (resume.classList.contains("modern-template")) {
+        document.body.classList.add("print-modern");
+    }
+
+    if (resume.classList.contains("premium-template")) {
+        document.body.classList.add("print-premium");
+    }
+
+    window.print();
+}
+
+</script>
+<script>
+function openAnalyzer() {
+    window.location.href = "analyzer.html";
+}
+</script>
+</body>
+</html>

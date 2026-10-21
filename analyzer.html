@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Resume Analyzer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+
+        <div class="logo">
+            AI Resume Builder
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="create_resume.html">Create Resume</a></li>
+            <li><a href="analyzer.html">Resume Analyzer</a></li>
+        </ul>
+
+    </nav>
+
+    <main class="analyzer-container">
+
+        <h1>Resume Analyzer</h1>
+
+        <p>
+            Analyze your resume and get improvement suggestions.
+        </p>
+
+        <button type="button" id="analyzeBtn">
+            Analyze Resume
+        </button>
+
+        <div id="analysisResult" style="display: none;">
+
+            <h2>Your Resume Score</h2>
+
+            <h1 id="resumeScore">0/100</h1>
+
+            <h3>Improvement Suggestions</h3>
+
+            <ul id="suggestionsList"></ul>
+
+        </div>
+
+    </main>
+
+    <script src="script.js"></script>
+    
+
+</body>
+</html>

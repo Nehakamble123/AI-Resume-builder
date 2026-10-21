@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Create Resume | AI Resume Builder</title>
+
+<style>
+
+/* GENERAL DESIGN */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f1f5f9;
+    color: #1e293b;
+}
+
+/* NAVIGATION BAR */
+
+.navbar {
+    background: #0f172a;
+    padding: 20px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.logo {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.nav-links a:hover {
+    color: #93c5fd;
+}
+
+/* PAGE HEADING */
+
+.page-heading {
+    text-align: center;
+    padding: 40px 20px 15px;
+}
+
+.page-heading h1 {
+    font-size: 34px;
+    color: #0f172a;
+}
+
+.page-heading p {
+    color: #64748b;
+    font-size: 16px;
+}
+
+/* MAIN CONTAINER */
+
+.resume-form-container {
+    width: 92%;
+    max-width: 1050px;
+    margin: 25px auto 60px;
+}
+
+/* FORM DESIGN */
+
+#resumeForm {
+    background: white;
+    padding: 35px;
+    border-radius: 16px;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.09);
+}
+
+/* FIELDSET */
+
+fieldset {
+    border: 1px solid #dbe4f0;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 28px;
+    min-width: 0;
+}
+
+legend {
+    color: #1d4ed8;
+    font-size: 21px;
+    font-weight: bold;
+    padding: 0 10px;
+}
+
+/* TWO COLUMN GRID */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.form-group {
+    min-width: 0;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+/* LABELS */
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #334155;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* INPUT FIELDS */
+
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: #f8fafc;
+    color: #1e293b;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px #dbeafe;
+}
+
+/* PHOTO PREVIEW */
+
+#photoPreview {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-top: 15px;
+    border: 3px solid #bfdbfe;
+    display: none;
+}
+
+/* BUTTONS */
+
+.form-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.form-buttons button {
+    border: none;
+    padding: 15px 28px;
+    border-radius: 9px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn {
+    background: #2563eb;
+    color: white;
+}
+
+.btn:hover {
+    background: #1d4ed8;
+}
+
+.btn-secondary {
+    background: #e2e8f0;
+    color: #334155;
+}
+
+.btn-secondary:hover {
+    background: #cbd5e1;
+}
+
+/* FOOTER */
+
+footer {
+    background: #0f172a;
+    color: white;
+    text-align: center;
+    padding: 25px;
+}
+
+/* MOBILE RESPONSIVE */
+
+@media (max-width: 700px) {
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    #resumeForm {
+        padding: 18px;
+    }
+
+    fieldset {
+        padding: 15px;
+    }
+
+    .navbar {
+        justify-content: center;
+    }
+
+    .nav-links {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .page-heading h1 {
+        font-size: 27px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION BAR -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        AI Resume Builder
+    </div>
+
+    <ul class="nav-links">
+
+        <li>
+            <a href="index.html">Home</a>
+        </li>
+
+        <li>
+            <a href="create_resume.html">Create Resume</a>
+        </li>
+
+        <li>
+            <a href="analyzer.html">Resume Analyzer</a>
+        </li>
+
+    </ul>
+
+</nav>
+
+<!-- PAGE HEADING -->
+
+<div class="page-heading">
+
+    <h1>Create Your Professional Resume</h1>
+
+    <p>
+        Build a modern professional resume for any career field.
+    </p>
+
+</div>
+
+<!-- MAIN FORM -->
+
+<main class="resume-form-container">
+
+<form id="resumeForm">
+
+<!-- PERSONAL INFORMATION -->
+
+<fieldset>
+
+<legend>👤 Personal Information</legend>
+
+<div class="form-grid">
+
+<div class="form-group">
+
+<label for="fullName">Full Name *</label>
+
+<input
+    type="text"
+    id="fullName"
+    placeholder="Enter your full name"
+    required
+>
+
+</div>
+
+<div class="form-group">
+
+<label for="email">Email Address *</label>
+
+<input
+    type="email"
+    id="email"
+    placeholder="Enter your email address"
+    required
+>
+
+</div>
+
+<div class="form-group">
+
+<label for="phone">Phone Number</label>
+
+<input
+    type="tel"
+    id="phone"
+    placeholder="Enter your phone number"
+>
+
+</div>
+
+<div class="form-group">
+
+<label for="address">Address</label>
+
+<input
+    type="text"
+    id="address"
+    placeholder="City, State, Country"
+>
+
+</div>
+
+<div class="form-group">
+
+<label for="careerField">Select Your Career Field</label>
+
+<select id="careerField">
+
+<option value="">Select Your Field</option>
+<option value="IT">IT / Computer Science</option>
+<option value="Medical">Medical / Healthcare</option>
+<option value="Commerce">Commerce / Accounting</option>
+<option value="Management">MBA / Management</option>
+<option value="Engineering">Engineering</option>
+<option value="Arts">Arts / Design</option>
+<option value="Teaching">Teaching / Education</option>
+<option value="Banking">Banking / Finance</option>
+<option value="Other">Other Field</option>
+
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label for="profilePhoto">Upload Profile Photo</label>
+
+<input
+    type="file"
+    id="profilePhoto"
+    accept="image/png,image/jpeg"
+>
+
+<img
+    id="photoPreview"
+    alt="Profile Photo Preview"
+    style="disply:none;"
+>
+
+</div>
+
+<div class="form-group full-width">
+
+<label for="objective">
+Professional Summary / Career Objective
+</label>
+
+<textarea
+    id="objective"
+    placeholder="Write your professional summary and career goals"
+></textarea>
+
+</div>
+
+</div>
+</fieldset>
+
+<!-- EDUCATION -->
+
+<fieldset>
+
+<legend>🎓 Education Details</legend>
+
+<div class="form-grid">
+
+<div class="form-group">
+
+<label for="degree">Degree / Qualification</label>
+
+<input
+    type="text"
+    id="degree"
+    placeholder="BCA, B.Com, MBA, MBBS, etc."
+>
+
+</div>
+
+<div class="form-group">
+
+<label for="college">College / University</label>
+
+<input
+    type="text"
+    id="college"
+    placeholder="Enter college or university name"
+>
+
+</div>
+
+<div class="form-group">
+
+<label for="graduationYear">Graduation Year</label>
+
+<input
+    type="number"
+    id="graduationYear"
+    min="1950"
+    max="2100"
+    placeholder="2026"
+>
+
+</div>
+
+</div>
+</fieldset>
+
+<!-- SKILLS -->
+
+<fieldset>
+
+<legend>💡 Skills & Expertise</legend>
+
+<div class="form-grid">
+
+<div class="form-group full-width">
+
+<label for="skills" id="skillsLabel">
+Professional Skills
+</label>
+
+<textarea
+    id="skills"
+    placeholder="Enter skills related to your career"
+></textarea>
+
+</div>
+
+<div class="form-group">
+
+<label for="softSkills">Soft Skills</label>
+
+<textarea
+    id="softSkills"
+    placeholder="Communication, Teamwork, Leadership"
+></textarea>
+
+</div>
+
+<div class="form-group">
+
+<label for="skillLevel">Skills Proficiency</label>
+
+<textarea
+    id="skillLevel"
+    placeholder="Python - Advanced, Excel - Intermediate"
+></textarea>
+
+</div>
+
+</div>
+</fieldset>
+
+<!-- WORK EXPERIENCE -->
+
+<fieldset>
+
+<legend>💼 Work Experience & Internships</legend>
+
+<div class="form-grid">
+
+<div class="form-group full-width">
+
+<label for="experience">Work Experience</label>
+
+<textarea
+    id="experience"
+    placeholder="Company, job role, duration and responsibilities"
+></textarea>
+
+</div>
+
+<div class="form-group full-width">
+
+<label for="internships">Internships</label>
+
+<textarea
+    id="internships"
+    placeholder="Company name, internship role and duration"
+></textarea>
+
+</div>
+
+<div class="form-group full-width">
+
+<label for="volunteer">Volunteer Experience</label>
+
+<textarea
+    id="volunteer"
+    placeholder="NGO, social work and college events"
+></textarea>
+
+</div>
+
+</div>
+</fieldset>
+
+<!-- PROJECTS -->
+
+<fieldset>
+
+<legend>🚀 Projects & Portfolio</legend>
+
+<div class="form-grid">
+
+<div class="form-group full-width">
+
+<label for="projects">Projects</label>
+
+<textarea
+    id="projects"
+    placeholder="Describe your academic or professional projects"
+></textarea>
+
+</div>
+
+<div class="form-group">
+
+<label for="linkedin">LinkedIn Profile</label>
+
+<input
+    type="url"
+    id="linkedin"
+    placeholder="https://linkedin.com/in/yourname"
+>
+
+</div>
+
+<div class="form-group">
+
+<label for="portfolio">GitHub / Portfolio Website</label>
+
+<input
+    type="url"
+    id="portfolio"
+    placeholder="https://github.com/yourname"
+>
+
+</div>
+
+</div>
+</fieldset>
+
+<!-- ACHIEVEMENTS -->
+
+<fieldset>
+
+<legend>🏆 Achievements & Certifications</legend>
+
+<div class="form-grid">
+
+<div class="form-group full-width">
+
+<label for="achievements">Achievements & Awards</label>
+
+<textarea
+    id="achievements"
+    placeholder="Awards, competitions and achievements"
+></textarea>
+
+</div>
+
+<div class="form-group">
+
+<label for="certifications">Certifications</label>
+
+<textarea
+    id="certifications"
+    placeholder="Courses and certificates"
+></textarea>
+
+</div>
+
+<div class="form-group">
+
+<label for="workshops">Workshops & Training</label>
+
+<textarea
+    id="workshops"
+    placeholder="Workshops, seminars and training"
+></textarea>
+
+</div>
+
+</div>
+</fieldset>
+
+<!-- ADDITIONAL DETAILS -->
+
+<fieldset>
+
+<legend>🌟 Additional Professional Details</legend>
+
+<div class="form-grid">
+
+<div class="form-group">
+
+<label for="languages">Languages Known</label>
+
+<input
+    type="text"
+    id="languages"
+    placeholder="English, Hindi, Marathi"
+>
+
+</div>
+
+<div class="form-group">
+
+<label for="highlights">Professional Highlights</label>
+
+<textarea
+    id="highlights"
+    placeholder="Your top professional strengths"
+></textarea>
+
+</div>
+
+</div>
+</fieldset>
+
+<!-- BUTTONS -->
+
+<div class="form-buttons">
+
+<button type="submit" class="btn">
+    Generate Resume
+</button>
+
+<button type="reset" class="btn-secondary">
+    Clear Form
+</button>
+
+</div>
+
+</form>
+
+</main>
+
+<!-- FOOTER -->
+
+<footer>
+
+<p>
+&copy; 2026 AI Resume Builder & Improvement System
+</p>
+
+<p>BCA Mini Project</p>
+
+</footer>
+
+<!-- MAIN JAVASCRIPT -->
+
+<script src="script.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const photoInput = document.getElementById("profilePhoto");
+    const photoPreview = document.getElementById("photoPreview");
+
+    if (!photoInput || !photoPreview) return;
+
+    photoInput.addEventListener("change", function () {
+
+        const file = photoInput.files[0];
+
+        if (!file) return;
+
+        if (!file.type.startsWith("image/")) {
+            alert("Please select an image.");
+            return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = function (event) {
+
+            const photoData = event.target.result;
+
+            photoPreview.src = photoData;
+            photoPreview.style.display = "block";
+
+            sessionStorage.setItem("resumePhoto", photoData);
+
+        };
+
+        reader.readAsDataURL(file);
+
+    });
+
+});
+</script>
+
+<!-- CAREER FIELD JAVASCRIPT -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const careerField =
+        document.getElementById("careerField");
+
+    const skillsLabel =
+        document.getElementById("skillsLabel");
+
+    const skills =
+        document.getElementById("skills");
+
+    const objective =
+        document.getElementById("objective");
+
+    const fieldData = {
+
+        IT: {
+            heading: "Technical Skills",
+            skills: "Python, Java, HTML, CSS, JavaScript",
+            summary: "Write about your programming skills and projects."
+        },
+
+        Medical: {
+            heading: "Clinical Skills",
+            skills: "Patient Care, Clinical Documentation",
+            summary: "Write about your healthcare knowledge."
+        },
+
+        Commerce: {
+            heading: "Accounting Skills",
+            skills: "Tally, GST, Excel, Accounting",
+            summary: "Write about your accounting experience."
+        },
+
+        Management: {
+            heading: "Management Skills",
+            skills: "Leadership, Planning, Communication",
+            summary: "Write about your management achievements."
+        },
+
+        Engineering: {
+            heading: "Engineering Skills",
+            skills: "Design, Problem Solving, Project Planning",
+            summary: "Write about your engineering experience."
+        },
+
+        Arts: {
+            heading: "Creative Skills",
+            skills: "Design, Creativity, Content Creation",
+            summary: "Write about your creative achievements."
+        },
+
+        Teaching: {
+            heading: "Teaching Skills",
+            skills: "Lesson Planning, Classroom Management",
+            summary: "Write about your teaching experience."
+        },
+
+        Banking: {
+            heading: "Banking & Finance Skills",
+            skills: "Banking Operations, Excel, Financial Analysis",
+            summary: "Write about your banking knowledge."
+        }
+
+    };
+
+    function updateForm() {
+
+        const selected =
+            fieldData[careerField.value];
+
+        skillsLabel.textContent =
+            selected
+                ? selected.heading
+                : "Professional Skills";
+
+        skills.placeholder =
+            selected
+                ? selected.skills
+                : "Enter your professional skills";
+
+        objective.placeholder =
+            selected
+                ? selected.summary
+                : "Write your professional summary";
+
+    }
+
+    careerField.addEventListener(
+        "change",
+        updateForm
+    );
+
+    updateForm();
+
+});
+
+</script>
+<script>
+document.getElementById("profilePhoto").addEventListener("change", function () {
+    const file = this.files[0];
+
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+        const img = document.getElementById("photoPreview");
+
+        img.src = e.target.result;
+        img.style.display = "block";
+
+        sessionStorage.setItem("resumePhoto", e.target.result);
+    };
+
+    reader.readAsDataURL(file);
+});
+</script>
+
+</body>
+</html>
